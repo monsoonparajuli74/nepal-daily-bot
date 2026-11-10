@@ -1,0 +1,53 @@
+{
+  "note": "Authored seed content. Replace by adding app/data/horoscope_seed/<YYYY-MM-DD>.json or via scripts/import_horoscope.py. Do not scrape copyrighted horoscope sites.",
+  "signs": {
+    "aries": {
+      "en": "Energy is high today. A bold move at work gets noticed. Watch your temper in the evening and spend your luck on one clear goal.",
+      "ne": "आज तपाईंमा ऊर्जा उच्च छ। काममा गरेको साहसिक कदमले ध्यान खिच्छ। साँझ रिस नियन्त्रण गर्नुहोस् र एउटै स्पष्ट लक्ष्यमा भाग्य लगाउनुहोस्।"
+    },
+    "taurus": {
+      "en": "Steady progress beats hurry. Money matters look favourable for saving. A family conversation clears an old misunderstanding.",
+      "ne": "हतारभन्दा स्थिर प्रगति राम्रो हुन्छ। बचतका लागि आर्थिक पक्ष अनुकूल छ। पारिवारिक कुराकानीले पुरानो गलतफहमी हटाउँछ।"
+    },
+    "gemini": {
+      "en": "Words are your superpower. A message or call opens a useful door. Double-check details before you commit to anything.",
+      "ne": "शब्द तपाईंको शक्ति हो। कुनै सन्देश वा फोनले उपयोगी ढोका खोल्छ। कुनै प्रतिबद्धता गर्नुअघि विवरण जाँच्नुहोस्।"
+    },
+    "cancer": {
+      "en": "Home and heart are in focus. Trust your intuition about a person's intentions. A small act of care pays you back.",
+      "ne": "घर र मन केन्द्रमा छन्। कसैको नियतबारे तपाईंको अन्तर्ज्ञान मान्नुहोस्। सानो मायाले प्रतिफल दिन्छ।"
+    },
+    "leo": {
+      "en": "You shine in a group today. Career news is encouraging, so ask for what you deserve. Keep pride aside in a close relationship.",
+      "ne": "आज समूहमा तपाईं चम्किनुहुन्छ। पेशागत समाचार उत्साहजनक छ, आफ्नो हक माग्नुहोस्। नजिकको सम्बन्धमा अहंकार पर राख्नुहोस्।"
+    },
+    "virgo": {
+      "en": "Your eye for detail saves the day. Health routines deserve attention. Finish one pending task before starting a new one.",
+      "ne": "तपाईंको विवरणमा ध्यानले दिन बचाउँछ। स्वास्थ्य दिनचर्यामा ध्यान दिनुहोस्। नयाँ सुरु गर्नुअघि एउटा बाँकी काम सक्नुहोस्।"
+    },
+    "libra": {
+      "en": "Balance returns to a difficult situation. A partner or colleague offers unexpected support. Avoid overthinking a simple choice.",
+      "ne": "कठिन परिस्थितिमा सन्तुलन फर्किन्छ। साझेदार वा सहकर्मीले अप्रत्याशित सहयोग गर्छ। साधारण निर्णयमा बढी सोच्नु पर्दैन।"
+    },
+    "scorpio": {
+      "en": "Focus is intense and productive. A secret or hidden matter comes to light in your favour. Channel strong feelings into work, not words.",
+      "ne": "एकाग्रता तीव्र र उत्पादक छ। लुकेको कुरा तपाईंको पक्षमा खुल्छ। तीव्र भावना शब्दमा होइन, काममा लगाउनुहोस्।"
+    },
+    "sagittarius": {
+      "en": "Adventure calls, but check the practical details first. Optimism attracts the right people. A travel or study plan gains momentum.",
+      "ne": "यात्राको आकर्षण छ, तर व्यावहारिक विवरण पहिले जाँच्नुहोस्। आशावादले सही मानिस तान्छ। यात्रा वा पढाइको योजना अघि बढ्छ।"
+    },
+    "capricorn": {
+      "en": "Discipline brings a visible result today. A senior person notices your effort. Make time for rest so the pace lasts.",
+      "ne": "अनुशासनले आज देखिने नतिजा दिन्छ। वरिष्ठ व्यक्तिले तपाईंको प्रयास देख्छ। गति कायम राख्न आरामका लागि समय निकाल्नुहोस्।"
+    },
+    "aquarius": {
+      "en": "A fresh idea finds support. Friendships bring a helpful connection. Stay open to a plan that differs from your first choice.",
+      "ne": "नयाँ विचारले समर्थन पाउँछ। मित्रताले उपयोगी सम्पर्क दिन्छ। पहिलो रोजाइभन्दा फरक योजनाप्रति खुला रहनुहोस्।"
+    },
+    "pisces": {
+      "en": "Creativity flows and intuition is sharp. A kind gesture returns to you. Guard your energy from other people's worries.",
+      "ne": "सिर्जनशीलता बग्छ र अन्तर्ज्ञान तीखो छ। दयालु व्यवहार फर्केर आउँछ। अरूको चिन्ताबाट आफ्नो ऊर्जा जोगाउनुहोस्।"
+    }
+  }
+}

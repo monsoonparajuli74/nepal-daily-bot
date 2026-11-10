@@ -1,0 +1,102 @@
+{
+  "monthly": {
+    "aries": {
+      "en": "Momentum returns early this month: the conversation you have been putting off finally moves somewhere. Take the lead at work, but let others finish their side first. Short trips and old friends bring good news around the middle of the month.",
+      "ne": "यो महिना सुरुवातदेखि नै गति पाउनुहुन्छ: तपाईंले ढिलो गरिरहनुभएको कुराकानी अन्ततः अघि बढ्छ। काममा अगाडि बढ्नुहोस्, तर अरूले आफ्नो पाटो पूरा गर्न दिनुहोस्। छोटो यात्रा र पुराना साथीहरूबाट मध्यमा राम्रो खबर आउँछ।"
+    },
+    "taurus": {
+      "en": "A steady month for money: earnings hold while spending wants to creep up. Keep receipts and hold off on big purchases until the second half. Home and family time recharges you more than usual.",
+      "ne": "पैसाको लागि स्थिर महिना: आम्दानी राम्रै रहन्छ, खर्च बढ्न खोज्छ। बिलहरू जोगाउनुहोस् र ठूला खरीद दोस्रो आधासम्म रोक्नुहोस्। घर र परिवारसँग बिताएको समयले सामान्यभन्दा बढी ताजगी दिन्छ।"
+    },
+    "gemini": {
+      "en": "Ideas flow faster than you can note them — pick two and finish those. The message you have been waiting for arrives around mid-month. In conversations, say the precise thing rather than the clever thing.",
+      "ne": "विचारहरू नोट गर्ने गतिभन्दा छिटो आउँछन् — दुईवटा छानेर त्यही पूरा गर्नुहोस्। तपाईंले पर्खिरहनुभएको सन्देश महिनाको मध्यतिर आउँछ। कुराकानीमा चतुर भन्दा पनि स्पष्ट कुरा भन्नुहोस्।"
+    },
+    "cancer": {
+      "en": "Your instinct to protect everyone works — as long as you protect your own hours too. A small disagreement at home clears by the weekend. Money stays balanced if you plan the week's spending on Sunday.",
+      "ne": "सबैलाई जोगाउने तपाईंको प्रवृत्ति काम गर्छ — आफ्नो समय पनि जोगाउनुभएसम्म। घरमा भएको सानो मतभेद साइटदेखि अघि सकिन्छ। आइतबारै सप्ताहको खर्च योजना गरेपछि पैसा सन्तुलनमा रहन्छ।"
+    },
+    "leo": {
+      "en": "Recognition comes from an unexpected direction — someone notices work you assumed had gone unseen. Keep your temper when plans change at the last minute. Warmth at home balances a busy calendar.",
+      "ne": "मान्यता अनपेक्षित ठाउँबाट आउँछ — तपाईंले नदेखिएको ठानेको काम कसैले टिप्छ। अन्तिम क्षणमा योजना बदलिँदा रिस नबिर्सनुहोस्। व्यस्त पात्रोसँग घरको न्यानोपनले सन्तुलन ल्याउँछ।"
+    },
+    "virgo": {
+      "en": "Details are on your side: check and double-check and you will catch what others miss. Health responds better to small routine changes than dramatic ones. A practical offer is worth saying yes to.",
+      "ne": "विवरणहरू तपाईंको पक्षमा छन्: जाँच र पुनःजाँच गर्नुहोस्, अरूले बिर्सने कुरा तपाईं पक्र्नुहुन्छ। स्वास्थ्यमा ठूलो परिवर्तनभन्दा सानो दिनचर्या बढी उपयोगी हुन्छ। व्यावहारिक प्रस्तावलाई हो भन्नु लायक छ।"
+    },
+    "libra": {
+      "en": "Harmony is easy to find this month — but do not confuse it with silence. Say what you need, early. A partnership, personal or professional, deepens through one honest conversation. Money improves with a simple budget.",
+      "ne": "यस महिना मेलमिलाप सजिलै मिल्छ — तर त्यसलाई चुप्पीसँग भ्रमित गर्नुहुन्न। चाहिएको कुरा सुरुमै भन्नुहोस्। व्यावसायिक वा व्यक्तिगत साझेदारी एउटा इमानदार कुराकानीबाट गहिरो हुन्छ। साधारण बजेटले पैसा सुधार्छ।"
+    },
+    "scorpio": {
+      "en": "A period of clear thinking: cut what no longer serves you, and do it without drama. Work intensity peaks mid-month, so guard your sleep. Someone from the past returns with an apology or an offer.",
+      "ne": "स्पष्ट सोच्ने समय: अब नउपयोगी कुरा काट्नुहोस्, त्यसमा नाटक नचलाउनुहोस्। कामको तीव्रता महिनाको मध्यमा चरममा पुग्छ, त्यसैले निद्रा जोगाउनुहोस्। अतीतका कसैले क्षमा वा प्रस्तासहित फिर्ता आउँछन्।"
+    },
+    "sagittarius": {
+      "en": "Variety lands on your plate — travel, study or a new circle of people. Decide with your head as well as your gut; one promise needs a second look. Finances stay steady if you avoid lending this month.",
+      "ne": "विविधता तपाईंको पालोमा आउँछ — यात्रा, अध्ययन वा नयाँ मानिसहरूको वृन्ति। मनले नभएर होइन, सोचेर निर्णय गर्नुहोस्; एउटा वाचा दोस्रो पटक हेर्नुपर्छ। यस महिना ऋण नदिँदा आर्थिक स्थिरता रहन्छ।"
+    },
+    "capricorn": {
+      "en": "Slow, durable progress on the goal you have carried for months. Delegate something instead of carrying it all alone. Family obligations ask for time — give it willingly and keep the rest of the calendar light.",
+      "ne": "केही महिनादेखि बोकिरहनुभएको लक्ष्यमा ढिलो तर टिकाउ प्रगति। सबै एक्लै बोक्नुको साटो केही बाँड्नुहोस्। परिवारका दायित्वले समय माग्छ — मनलागेर दिनुहोस् र बाँकी पात्रो हल्का राख्नुहोस्।"
+    },
+    "aquarius": {
+      "en": "Fresh thinking finds a better way to do an old task — share the method, not just the result. Friendships are generous this month; one quiet friend gets overlooked, so reach out first. Money is stable, spending is social.",
+      "ne": "नयाँ सोचले पुरानो काम गर्ने राम्रो बाटो देखाउँछ — नतिजा मात्र होइन, विधि पनि बाँड्नुहोस्। यस महिना मित्रता उदार छ; एउटा शान्त साथी बिर्सिन्छ, त्यसैले तपाईं नै सम्पर्क गर्नुहोस्। पैसा स्थिर छ, खर्च सामाजिक छ।"
+    },
+    "pisces": {
+      "en": "Your imagination is productive when you give it a deadline. A gentle boundary with someone close protects the relationship. Watch spending on small daily treats — they add up faster than you think.",
+      "ne": "समयसीमा दिँदा तपाईंको कल्पना उत्पादनशील हुन्छ। नजिकका मानिससँग सौम्य सीमा राख्नाले सम्बन्ध जोगाउँछ। दैनिक साना खुसीमा हुने खर्चमा ध्यान दिनुहोस् — त्यो तपाईंले सोचेभन्दा छिटो जम्मा हुन्छ।"
+    }
+  },
+  "yearly": {
+    "aries": {
+      "en": "The year rewards initiative: new roles, proposals and first attempts land well in the first half, and settle into results by year end. Build a team around you instead of charging alone, and guard your energy through the monsoon months.",
+      "ne": "यो वर्ष पहललाई इनाम दिन्छ: नयाँ भूमिका, प्रस्ताव र पहिलो प्रयासहरू पहिलो आधामा राम्रो हुन्छन् र वर्षान्तसम्म नतिजामा बस्छन्। एक्लै अगाडि धाउनुको साटो वरिपरि टोली बनाउनुहोस्, र वर्षायाममा आफ्नो ऊर्जा जोगाउनुहोस्।"
+    },
+    "taurus": {
+      "en": "A year of consolidation: property, savings and skills you can keep. Income grows slowly but for real, especially after mid-year. Family duties ask for patience — those who matter will remember who showed up.",
+      "ne": "संकलनको वर्ष: जग्गाजमिन, बचत र सीप — कुनै पनि बाँच्न सक्ने कुरा। आम्दानी ढिलो तर साँच्चिकै बढ्छ, विशेष गरी वर्षको मध्यपछि। परिवारका दायित्वले धैर्य माग्छ — जसलाई माया गर्नुहुन्छ, तिनले को आएको थियो भनेर सम्झन्छन्।"
+    },
+    "gemini": {
+      "en": "Communication is your advantage all year — writing, teaching, selling, presenting. Two or three good offers arrive; choose the one with room to grow rather than the biggest first number. Keep a settled home base while your calendar moves.",
+      "ne": "सारा वर्ष सञ्चार नै तपाईंको बल हो — लेख्ने, सिकाउने, बेच्ने, प्रस्तुत गर्ने। दुई-तीन राम्रा प्रस्तावहरू आउँछन्; पहिलो ठूलो अंकभन्दा विस्तार हुने एउटा छान्नुहोस्। पात्रो चलिरहोस्, तर घरको आधार स्थिर राख्नुहोस्।"
+    },
+    "cancer": {
+      "en": "Home and work both ask for restructuring — renovate, relocate or reorganise something physical early in the year. Emotional clarity improves after the middle months. Savings grow quietly when you automate them.",
+      "ne": "घर र काम दुवैले पुनर्संरचना माग्छ — वर्षको सुरुमै केही भौतिक कुरा मेर्मिट, सराइ वा मिलान गर्नुहोस्। मध्य महिनापछि भावनात्मक स्पष्टता बढ्छ। बचत स्वचालित गरेपछि चुपचाप बढ्छ।"
+    },
+    "leo": {
+      "en": "Visibility peaks this year: public work, leadership and credit. Accept the spotlight and share it generously and the year stays generous in return. Watch for overcommitment in autumn — a short pause keeps the momentum.",
+      "ne": "यस वर्ष देखिनु नै मुख्य कुरा: सार्वजनिक काम, नेतृत्व र श्रेय। प्रकाशमा जानुहोस् र त्यसलाई उदारतापूर्वक बाँड्नुहोस्, वर्षले पनि उस्तै फिर्ता दिन्छ। शरदमा अति लिनुभएको कुरा हेर्नुहोस् — छोटो विश्रामले गति जोगाउँछ।"
+    },
+    "virgo": {
+      "en": "The systems you build this year keep paying afterwards. Perfecting one skill or process beats chasing many. Health routines started early will stick. A practical relationship — colleague, mentor, partner — becomes a long-term one.",
+      "ne": "यस वर्ष बनाउनुभएका प्रणालीहरूले पछि पनि फाइदा दिन्छन्। धेरै पछ्याउँदा एउटा सीप वा प्रक्रिया उत्तम बनाउनु राम्रो। सुरुमा बानी बसाल्ने स्वास्थ्य दिनचर्या टिक्छ। व्यावहारिक सम्बन्ध — सहकर्मी, गुरु, साथी — दीर्घकालीन बन्छ।"
+    },
+    "libra": {
+      "en": "The year belongs to partnerships: business, marriage, collaboration. Contracts signed after the first quarter favour you. Craft and aesthetics do well — show your work publicly. Balance travel with time at home.",
+      "ne": "यो वर्ष साझेदारीको हो: व्यवसाय, विवाह, सहकार्य। पहिलो पाकोपछि गरिएका सम्झौताहरू तपाईंको पक्षमा हुन्छन्। कला र सौन्दर्य राम्रो हुन्छ — काम सार्वजनिक रूपमा देखाउनुहोस्। यात्रा र घरको समय सन्तुलन गर्नुहोस्।"
+    },
+    "scorpio": {
+      "en": "A year of transformation, not adjustment: change the field, not just your position in it. Financially, one decisive move — an investment, a debt payoff, a career switch — beats many small ones. Keep your circle smaller and stronger.",
+      "ne": "समायोजन होइन, रूपान्तरणको वर्ष: स्थिति मात्र होइन, मैदान नै बदल्नुहोस्। आर्थिक रूपमा एउटा ठोस कदम — लगानी, ऋण तिर्ने, करियर बदल्ने — धेरै साना कदमभन्दा बलियो छ। वृन्ति सानो र बलियो राख्नुहोस्।"
+    },
+    "sagittarius": {
+      "en": "An expansion year: foreign connections, study, publishing or long-distance work. Do not scatter your bets — pick a direction by the second quarter and commit. Family support is the quiet engine behind it all.",
+      "ne": "विस्तारको वर्ष: वैदेशिक सम्बन्ध, अध्ययन, प्रकाशन वा लामो दूरीको काम। दाँव फैलाउनु हुन्न — दोस्रो पाकोसम्ममै एउटा दिशा छानेर लगिनुहोस्। पछाडि परिवारको सहयोग नै मौन इन्जिन हो।"
+    },
+    "capricorn": {
+      "en": "Career advancement is the headline: promotion or recognition arrives once you make your work visible. Elderly family members need attention — schedule it. Wealth builds steadily, best from late in the year.",
+      "ne": "करियर प्रगति नै मुख्य कुरा: काम देखिन थालेपछि पदोन्नति वा मान्यता आउँछ। जेठा उमेरका परिवारका सदस्यको ख्याल राख्नुपर्छ — पहिलेनै समय तोक्नुहोस्। सम्पत्ति क्रमशः बढ्छ, वर्षको अन्त्यतिर सबैभन्दा राम्रो।"
+    },
+    "aquarius": {
+      "en": "Innovation and networks carry the year. A project that looks unconventional at first gains serious supporters. Community work brings unexpected returns. Keep documents and finances orderly — paperwork is the only real trap.",
+      "ne": "नवप्रवर्तन र जालजालले वर्षलाई अगाडि बढाउँछ। सुरुमा अपरम्परागत देखिने परियोजनालाई गम्भीर समर्थक मिल्छन्। समुदायको कामले अनपेक्षित फाइदा दिन्छ। कागजात र हिसाब व्यवस्थित राख्नुहोस् — यही एक ठाउँमा मात्र जोखिम छ।"
+    },
+    "pisces": {
+      "en": "A gentler, productive year: creative or healing work gains recognition. Boundaries are the lesson — say no once a week and watch your energy return. Money improves through a side skill rather than your main job. Travel near water restores you.",
+      "ne": "न्यानो र उत्पादनशील वर्ष: रचनात्मक वा उपचारात्मक कामले मान्यता पाउँछ। सिकाइ सीमा तोक्नु हो — हप्तामा एकपटक न भन्नुहोस् र ऊर्जा फर्केको देख्नुहोस्। पैसा मुख्य जागिरभन्दा सानो सीपबाट सुधार्छ। पानी नजिकको यात्राले फिर्ता बनाउँछ।"
+    }
+  }
+}

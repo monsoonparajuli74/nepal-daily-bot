@@ -1,0 +1,12 @@
+{
+  "kathmandu": {"label_en": "🏔️ Kathmandu", "label_ne": "🏔️ काठमाडौं", "lat": 27.7172, "lon": 85.3240},
+  "pokhara": {"label_en": "🌊 Pokhara", "label_ne": "🌊 पोखरा", "lat": 28.2096, "lon": 83.9856},
+  "chitwan": {"label_en": "🚜 Chitwan", "label_ne": "🚜 चितवन", "lat": 27.5291, "lon": 84.3542},
+  "biratnagar": {"label_en": "Biratnagar", "label_ne": "विराटनगर", "lat": 26.4525, "lon": 87.2718},
+  "janakpur": {"label_en": "Janakpur", "label_ne": "जनकपुर", "lat": 26.7288, "lon": 85.9258},
+  "birgunj": {"label_en": "Birgunj", "label_ne": "वीरगन्ज", "lat": 27.0104, "lon": 84.8770},
+  "butwal": {"label_en": "Butwal", "label_ne": "बुटवल", "lat": 27.7008, "lon": 83.4484},
+  "nepalgunj": {"label_en": "Nepalgunj", "label_ne": "नेपालगन्ज", "lat": 28.0500, "lon": 81.6167},
+  "dhangadhi": {"label_en": "Dhangadhi", "label_ne": "धनगढी", "lat": 28.7053, "lon": 80.5898},
+  "terai": ["biratnagar", "janakpur", "birgunj", "butwal", "nepalgunj", "dhangadhi"]
+}

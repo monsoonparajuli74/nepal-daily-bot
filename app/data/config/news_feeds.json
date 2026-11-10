@@ -1,0 +1,13 @@
+{
+  "en": [
+    {"source": "The Kathmandu Post", "url": "https://kathmandupost.com/rss"},
+    {"source": "Online Khabar English", "url": "https://english.onlinekhabar.com/feed"},
+    {"source": "Nepali Times", "url": "https://nepalitimes.com/feed"},
+    {"source": "Khabarhub English", "url": "https://english.khabarhub.com/feed/"}
+  ],
+  "ne": [
+    {"source": "अनलाइन खबर", "url": "https://www.onlinekhabar.com/feed"},
+    {"source": "सेतोपाटी", "url": "https://www.setopati.com/feed"},
+    {"source": "रातोपाटी", "url": "https://ratopati.com/feed"}
+  ]
+}

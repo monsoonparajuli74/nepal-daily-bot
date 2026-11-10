@@ -1,0 +1,523 @@
+{
+  "essentials": [
+    {
+      "key": "tomato_local",
+      "match": [
+        "tomato small local",
+        "tomato local",
+        "tomato"
+      ],
+      "en": "Tomato (Local)",
+      "ne": "टमाटर (स्थानीय)"
+    },
+    {
+      "key": "potato_red",
+      "match": [
+        "potato red long",
+        "potato red",
+        "potato"
+      ],
+      "en": "Potato (Red)",
+      "ne": "आलु (रातो)"
+    },
+    {
+      "key": "onion_dry",
+      "match": [
+        "onion dry",
+        "onion"
+      ],
+      "en": "Onion (Dry)",
+      "ne": "प्याज (सुक्खा)"
+    },
+    {
+      "key": "cauliflower",
+      "match": [
+        "cauli local",
+        "cauli",
+        "cauliflower"
+      ],
+      "en": "Cauliflower",
+      "ne": "काउली"
+    },
+    {
+      "key": "cabbage",
+      "match": [
+        "cabbage"
+      ],
+      "en": "Cabbage",
+      "ne": "बन्दा"
+    },
+    {
+      "key": "carrot",
+      "match": [
+        "carrot"
+      ],
+      "en": "Carrot",
+      "ne": "गाजर"
+    },
+    {
+      "key": "cucumber",
+      "match": [
+        "cucumber"
+      ],
+      "en": "Cucumber",
+      "ne": "काँक्रो"
+    },
+    {
+      "key": "garlic",
+      "match": [
+        "garlic dry nepali",
+        "garlic dry",
+        "garlic"
+      ],
+      "en": "Garlic",
+      "ne": "लसुन"
+    },
+    {
+      "key": "ginger",
+      "match": [
+        "ginger"
+      ],
+      "en": "Ginger",
+      "ne": "अदुवा"
+    },
+    {
+      "key": "green_chilli",
+      "match": [
+        "chilli green long",
+        "chilli green",
+        "chilli"
+      ],
+      "en": "Green Chilli",
+      "ne": "हरियो खुर्सानी"
+    }
+  ],
+  "greens": [
+    {
+      "key": "spinach",
+      "match": [
+        "spinach",
+        "palungo"
+      ],
+      "en": "Spinach (Palungo)",
+      "ne": "पालुङ्गो"
+    },
+    {
+      "key": "mustard_greens",
+      "match": [
+        "mustard leaf",
+        "rayo"
+      ],
+      "en": "Mustard Greens (Rayo)",
+      "ne": "रायो साग"
+    },
+    {
+      "key": "broad_leaf",
+      "match": [
+        "brd leaf",
+        "broad leaf"
+      ],
+      "en": "Broad Leaf Mustard",
+      "ne": "तोरा साग"
+    },
+    {
+      "key": "coriander",
+      "match": [
+        "coriander"
+      ],
+      "en": "Coriander",
+      "ne": "धनियाँ"
+    },
+    {
+      "key": "lettuce",
+      "match": [
+        "lettuce"
+      ],
+      "en": "Lettuce",
+      "ne": "लेटस"
+    },
+    {
+      "key": "fenugreek",
+      "match": [
+        "fenugreek",
+        "methi"
+      ],
+      "en": "Fenugreek (Methi)",
+      "ne": "मेथी साग"
+    }
+  ],
+  "nepali_names": {
+    "tomato": "टमाटर",
+    "potato": "आलु",
+    "onion": "प्याज",
+    "cauliflower": "काउली",
+    "cabbage": "बन्दा",
+    "carrot": "गाजर",
+    "cucumber": "काँक्रो",
+    "garlic": "लसुन",
+    "ginger": "अदुवा",
+    "chilli": "खुर्सानी",
+    "spinach": "पालुङ्गो",
+    "mustard": "रायो",
+    "coriander": "धनियाँ"
+  },
+  "vegetables": [
+    {
+      "key": "brinjal",
+      "match": [
+        "brinjal"
+      ],
+      "en": "Brinjal",
+      "ne": "बैगुन"
+    },
+    {
+      "key": "okra",
+      "match": [
+        "okra"
+      ],
+      "en": "Okra (Bhindi)",
+      "ne": "भिन्डी"
+    },
+    {
+      "key": "capsicum",
+      "match": [
+        "capsicum"
+      ],
+      "en": "Capsicum",
+      "ne": "भेंडा खुर्सानी"
+    },
+    {
+      "key": "bitter_gourd",
+      "match": [
+        "bitter gourd"
+      ],
+      "en": "Bitter Gourd",
+      "ne": "करेला"
+    },
+    {
+      "key": "bottle_gourd",
+      "match": [
+        "bottle gourd"
+      ],
+      "en": "Bottle Gourd",
+      "ne": "लाउका"
+    },
+    {
+      "key": "smooth_gourd",
+      "match": [
+        "smooth gourd"
+      ],
+      "en": "Smooth Gourd",
+      "ne": "घिरौला"
+    },
+    {
+      "key": "snake_gourd",
+      "match": [
+        "snake gourd"
+      ],
+      "en": "Snake Gourd",
+      "ne": "चिचिन्डा"
+    },
+    {
+      "key": "sponge_gourd",
+      "match": [
+        "sponge gourd"
+      ],
+      "en": "Sponge Gourd",
+      "ne": "पटेरो"
+    },
+    {
+      "key": "pointed_gourd",
+      "match": [
+        "pointed gourd"
+      ],
+      "en": "Pointed Gourd",
+      "ne": "परवल"
+    },
+    {
+      "key": "pumpkin",
+      "match": [
+        "pumpkin"
+      ],
+      "en": "Pumpkin",
+      "ne": "फर्सी"
+    },
+    {
+      "key": "squash",
+      "match": [
+        "squash"
+      ],
+      "en": "Squash",
+      "ne": "स्क्वाश"
+    },
+    {
+      "key": "drumstick",
+      "match": [
+        "drumstick"
+      ],
+      "en": "Drumstick",
+      "ne": "साजन"
+    },
+    {
+      "key": "broccoli",
+      "match": [
+        "broccoli"
+      ],
+      "en": "Broccoli",
+      "ne": "ब्रोकोली"
+    },
+    {
+      "key": "turnip",
+      "match": [
+        "turnip"
+      ],
+      "en": "Turnip",
+      "ne": "सलगम"
+    },
+    {
+      "key": "radish",
+      "match": [
+        "raddish"
+      ],
+      "en": "Radish",
+      "ne": "मुला"
+    },
+    {
+      "key": "sweet_potato",
+      "match": [
+        "sweet potato"
+      ],
+      "en": "Sweet Potato",
+      "ne": "सखर्खण्डा"
+    },
+    {
+      "key": "french_bean",
+      "match": [
+        "french bean"
+      ],
+      "en": "French Bean",
+      "ne": "सिमी"
+    },
+    {
+      "key": "cowpea",
+      "match": [
+        "cowpea",
+        "cow pea"
+      ],
+      "en": "Cowpea",
+      "ne": "बोडी"
+    },
+    {
+      "key": "green_peas",
+      "match": [
+        "green peas"
+      ],
+      "en": "Green Peas",
+      "ne": "केराउ"
+    },
+    {
+      "key": "soyabean",
+      "match": [
+        "soyabean"
+      ],
+      "en": "Soyabean",
+      "ne": "भटमास"
+    },
+    {
+      "key": "onion_green",
+      "match": [
+        "onion green"
+      ],
+      "en": "Green Onion",
+      "ne": "हरियो प्याज"
+    },
+    {
+      "key": "asparagus",
+      "match": [
+        "asparagus"
+      ],
+      "en": "Asparagus",
+      "ne": "अस्परागस"
+    },
+    {
+      "key": "celery",
+      "match": [
+        "celery"
+      ],
+      "en": "Celery",
+      "ne": "सेलरी"
+    },
+    {
+      "key": "bamboo_shoot",
+      "match": [
+        "bamboo shoot"
+      ],
+      "en": "Bamboo Shoot",
+      "ne": "तामा"
+    },
+    {
+      "key": "mushroom",
+      "match": [
+        "mushroom"
+      ],
+      "en": "Mushroom",
+      "ne": "च्याउको"
+    }
+  ],
+  "fruits": [
+    {
+      "key": "apple_fuji",
+      "match": [
+        "apple fuji"
+      ],
+      "en": "Apple (Fuji)",
+      "ne": "स्याउ (फुजी)"
+    },
+    {
+      "key": "apple_jumla",
+      "match": [
+        "apple jumla"
+      ],
+      "en": "Apple (Jumla)",
+      "ne": "स्याउ (जुम्ला)"
+    },
+    {
+      "key": "apple_mustang",
+      "match": [
+        "apple mustang"
+      ],
+      "en": "Apple (Mustang)",
+      "ne": "स्याउ (मुस्ताङ)"
+    },
+    {
+      "key": "banana_nepali",
+      "match": [
+        "banana nepali"
+      ],
+      "en": "Banana (Nepali)",
+      "ne": "केरा (नेपाली)"
+    },
+    {
+      "key": "banana_malbhog",
+      "match": [
+        "banana malbhog"
+      ],
+      "en": "Banana (Malbhog)",
+      "ne": "केरा (मालभोग)"
+    },
+    {
+      "key": "orange",
+      "match": [
+        "orange indian",
+        "sweet orange",
+        "mandarin"
+      ],
+      "en": "Orange / Mandarin",
+      "ne": "सुन्तला"
+    },
+    {
+      "key": "lime",
+      "match": [
+        "lime"
+      ],
+      "en": "Lime",
+      "ne": "कागती"
+    },
+    {
+      "key": "lemon",
+      "match": [
+        "lemon"
+      ],
+      "en": "Lemon",
+      "ne": "निम्बू"
+    },
+    {
+      "key": "papaya",
+      "match": [
+        "papaya"
+      ],
+      "en": "Papaya",
+      "ne": "मेवा"
+    },
+    {
+      "key": "pineapple",
+      "match": [
+        "pineapple"
+      ],
+      "en": "Pineapple",
+      "ne": "अनानास"
+    },
+    {
+      "key": "pomegranate",
+      "match": [
+        "pomegranate"
+      ],
+      "en": "Pomegranate",
+      "ne": "अनार"
+    },
+    {
+      "key": "guava",
+      "match": [
+        "guava"
+      ],
+      "en": "Guava",
+      "ne": "अम्बा"
+    },
+    {
+      "key": "pear",
+      "match": [
+        "pear"
+      ],
+      "en": "Pear",
+      "ne": "नास्पाती"
+    },
+    {
+      "key": "watermelon",
+      "match": [
+        "water melon"
+      ],
+      "en": "Watermelon",
+      "ne": "तरबुजा"
+    },
+    {
+      "key": "dragon_fruit",
+      "match": [
+        "dragon fruit"
+      ],
+      "en": "Dragon Fruit",
+      "ne": "ड्रेगन फ्रुट"
+    },
+    {
+      "key": "kiwi",
+      "match": [
+        "kiwi"
+      ],
+      "en": "Kiwi",
+      "ne": "किवी"
+    },
+    {
+      "key": "avocado",
+      "match": [
+        "avocado"
+      ],
+      "en": "Avocado",
+      "ne": "अवकाडो"
+    },
+    {
+      "key": "coconut",
+      "match": [
+        "coconut"
+      ],
+      "en": "Coconut",
+      "ne": "नरिवल"
+    },
+    {
+      "key": "tree_tomato",
+      "match": [
+        "tree tomato"
+      ],
+      "en": "Tree Tomato",
+      "ne": "रुक्कामर"
+    }
+  ]
+}
