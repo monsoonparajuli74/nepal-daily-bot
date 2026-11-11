@@ -11,6 +11,7 @@ from apscheduler.triggers.cron import CronTrigger
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
+from app.bot.handlers.admin import send_daily_summary
 from app.bot.processor import Processor
 from app.bot.ratelimit import RateLimiter
 from app.bot.users import mark_inactive
@@ -18,6 +19,7 @@ from app.channels.telegram import webhook as telegram_webhook
 from app.channels.telegram.client import TelegramChannel
 from app.channels.telegram.commands import configure_bot, delete_webhook, set_webhook
 from app.config import Settings, get_settings
+from app.data.analytics import track_event_async
 from app.data.cache import latest_snapshot, snapshot_is_stale
 from app.data.config_loader import load_festivals
 from app.data.dedupe import Deduper
@@ -77,6 +79,7 @@ async def lifespan(app: FastAPI):
         async with session_factory() as session:
             await mark_inactive(session, chat_id)
             await session.commit()
+        track_event_async(session_factory, settings.analytics_salt, chat_id, "blocked")
 
     channel = TelegramChannel(settings, on_blocked=on_blocked)
     app.state.channel = channel
@@ -105,6 +108,15 @@ async def lifespan(app: FastAPI):
                 args=[settings, session_factory, channel],
                 id="digest:daily",
                 name="daily digest",
+                replace_existing=True,
+            )
+        if settings.feature_admin_daily_summary and settings.admin_telegram_ids:
+            scheduler.add_job(
+                send_daily_summary,
+                trigger=CronTrigger(hour=21, minute=0, timezone="Asia/Kathmandu"),
+                args=[settings, session_factory, channel],
+                id="admin:daily_summary",
+                name="admin daily summary",
                 replace_existing=True,
             )
         scheduler.start()

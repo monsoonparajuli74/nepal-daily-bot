@@ -8,6 +8,7 @@ from decimal import Decimal, InvalidOperation
 from app.bot import menus
 from app.bot.context import BotContext
 from app.bot.formatters import metals_signal, updated_line
+from app.bot.handlers import share
 from app.bot.handlers.common import send_error
 from app.data.cache import latest_snapshot, previous_ok_snapshot
 from app.utils import nepali_digits as nd
@@ -18,17 +19,17 @@ logger = logging.getLogger(__name__)
 async def today(ctx: BotContext, param: str | None = None) -> None:
     row = await latest_snapshot(ctx.session, "metals", ok_only=True)
     if row is None:
-        await send_error(ctx)
+        await send_error(ctx, module="metals")
         return
     payload = row.payload or {}
     values = payload.get("today") or {}
     if not values:
-        await send_error(ctx)
+        await send_error(ctx, module="metals")
         return
     previous = await previous_ok_snapshot(ctx.session, "metals")
     previous_values = (previous.payload or {}).get("today", {}) if previous else {}
 
-    await ctx.track("metals_view")
+    ctx.track("view", module="metals")
     lines = [f"<b>{ctx.t('metals_title')}</b>", ""]
     lines.extend(_metal_line(ctx, values, previous_values, "gold_tola", "metals_hallmark", "metals_per_tola"))
     if values.get("tejabi_tola") is not None:
@@ -54,7 +55,7 @@ async def today(ctx: BotContext, param: str | None = None) -> None:
 
     gold = values.get("gold_tola")
     compact = f"💰 Gold {ctx.t('metals_per_tola')}: रू {gold}"
-    await ctx.reply(body, inline=menus.result_buttons(ctx.t, share_url=ctx.share_url(compact)))
+    await ctx.reply(body, inline=menus.result_buttons(ctx.t, share_key=share.stash("metals", compact)))
 
 
 def _metal_line(ctx: BotContext, values, previous, key, label_key, unit_key) -> list[str]:

@@ -9,6 +9,7 @@ from sqlalchemy import select
 from app.bot import menus
 from app.bot.context import BotContext
 from app.bot.formatters import esc, format_bs_date
+from app.bot.handlers import share
 from app.bot.i18n import SIGN_NAMES, sign_name
 from app.data.cache import latest_snapshot
 from app.data.config_loader import load_horoscope_periods, load_horoscope_seed
@@ -25,7 +26,7 @@ async def menu(ctx: BotContext, param: str | None = None) -> None:
     if ctx.user.default_zodiac:
         await render_reading(ctx, ctx.user.default_zodiac)
         return
-    await ctx.track("horo_menu")
+    ctx.track("view", module="horoscope")
     await ctx.send(menus.zodiac_menu(ctx.t, ctx.language))
 
 
@@ -58,7 +59,7 @@ async def save(ctx: BotContext, param: str | None = None) -> None:
     from app.bot.users import set_default_zodiac
 
     await set_default_zodiac(ctx.session, ctx.user, slug)
-    await ctx.track("horo_save_default")
+    ctx.track("horoscope_save", module="horoscope")
     prefix = ctx.t("horo_saved", sign=sign_name(slug, ctx.language))
     await render_reading(ctx, slug, prefix=prefix)
 
@@ -77,7 +78,7 @@ async def render_reading(
         return
     reading, _source_title = found
 
-    await ctx.track("horo_read")
+    ctx.track("view", module="horoscope")
     # Reading text stays Nepali, but the sign name follows the interface language.
     display = sign_name(slug, ctx.language)
     today = today_npt()
@@ -110,7 +111,7 @@ async def render_reading(
         ctx.t,
         slug,
         can_save=can_save,
-        share_url=ctx.share_url(compact),
+        share_key=share.stash("horoscope", compact),
         period=period,
     )
     await ctx.reply(body, inline=buttons)

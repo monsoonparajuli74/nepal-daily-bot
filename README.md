@@ -97,6 +97,9 @@ Everything is environment-driven (see `.env.example`). The important ones:
 | `GROUP_RATE_LIMIT_PER_MINUTE` | Per-group messages/minute (bot only answers commands/mentions) |
 | `FEATURE_DAILY_DIGEST` | Send a 7:00 AM NPT briefing to active users; `/unsubscribe` opts out |
 | `ANALYTICS_SALT` | Salt for the hashed user id in analytics |
+| `ADMIN_TELEGRAM_ID` | Numeric Telegram id(s) allowed to use `/stats` (comma-separated list allowed) |
+| `FEATURE_ADMIN_DAILY_SUMMARY` | DM the admin a stats summary at 21:00 NPT (needs `ADMIN_TELEGRAM_ID`) |
+| `EVENTS_RETENTION_DAYS` | Delete analytics events older than this (default 180) |
 
 Editable **data files** let you change content without code:
 
@@ -158,7 +161,7 @@ tests/               Unit + webhook end-to-end tests
 ```powershell
 .\.venv\Scripts\python.exe -m pytest            # tests
 .\.venv\Scripts\python.exe -m ruff check .      # lint
-.\.venv\Scripts\python.exe scripts/stats.py 7   # 7-day analytics
+.\.venv\Scripts\python.exe scripts/stats.py     # admin analytics report
 ```
 
 Tests use a temporary SQLite database and a fake Telegram channel, so they never touch the

@@ -45,6 +45,7 @@ STRINGS: dict[str, dict[str, str]] = {
     "btn_main_menu": {"en": "⬅️ Main Menu", "ne": "⬅️ मुख्य मेनु"},
     "btn_back": {"en": "⬅️ Back", "ne": "⬅️ पछाडि"},
     "btn_share": {"en": "📤 Share", "ne": "📤 सेयर"},
+    "share_prompt": {"en": "Tap Share to pick a chat 👇", "ne": "सेयर गर्न च्याट छान्नुहोस् 👇"},
     "btn_cancel": {"en": "⬅️ Cancel", "ne": "⬅️ रद्द गर्नुहोस्"},
     # ---- Home menus ----
     "home_menu_title": {

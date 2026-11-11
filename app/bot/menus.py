@@ -72,8 +72,9 @@ def home_reply(t: TextFn, *, text: str | None = None, photo: str | None = None) 
     )
 
 
-def share_btn(t: TextFn, url: str) -> Btn:
-    return Btn(text=t("btn_share"), url=url)
+def share_btn(t: TextFn, key: str) -> Btn:
+    """A callback button; the key references the stashed block in handlers.share."""
+    return Btn(text=t("btn_share"), action=actions.share(key))
 
 
 def back_btn(t: TextFn, action: str = actions.HOME) -> Btn:
@@ -99,7 +100,7 @@ def horoscope_buttons(
     sign: str,
     *,
     can_save: bool,
-    share_url: str,
+    share_key: str,
     period: str = "d",
 ) -> list[list[Btn]]:
     periods = [
@@ -125,12 +126,12 @@ def horoscope_buttons(
         if can_save
         else Btn(text=t("horo_change_sign"), action=actions.horoscope_change())
     )
-    return [_rows(periods, 2)[0], _rows(periods, 2)[1], [first, share_btn(t, share_url)], [back_btn(t, actions.horoscope_change())]]
+    return [_rows(periods, 2)[0], _rows(periods, 2)[1], [first, share_btn(t, share_key)], [back_btn(t, actions.horoscope_change())]]
 
 
-def forex_buttons(t: TextFn, share_url: str) -> list[list[Btn]]:
+def forex_buttons(t: TextFn, share_key: str) -> list[list[Btn]]:
     return [
-        [Btn(text=t("btn_calculator_short"), action=actions.FOREX_CALC), share_btn(t, share_url)],
+        [Btn(text=t("btn_calculator_short"), action=actions.FOREX_CALC), share_btn(t, share_key)],
     ]
 
 
@@ -155,9 +156,9 @@ def amount_picker(t: TextFn, currency: str, quick: list[int]) -> Reply:
     return Reply(text=prompt, inline=rows, edit_message=True)
 
 
-def conversion_buttons(t: TextFn, currency: str, share_url: str) -> list[list[Btn]]:
+def conversion_buttons(t: TextFn, currency: str, share_key: str) -> list[list[Btn]]:
     return [
-        [Btn(text=t("btn_convert_again"), action=actions.forex_currency(currency)), share_btn(t, share_url)],
+        [Btn(text=t("btn_convert_again"), action=actions.forex_currency(currency)), share_btn(t, share_key)],
         [back_btn(t, actions.FOREX_RATES)],
     ]
 
@@ -188,13 +189,13 @@ def result_buttons(
     t: TextFn,
     *,
     back_action: str | None = None,
-    share_url: str | None = None,
+    share_key: str | None = None,
 ) -> list[list[Btn]]:
     row: list[Btn] = []
     if back_action:
         row.append(back_btn(t, back_action))
-    if share_url:
-        row.append(share_btn(t, share_url))
+    if share_key:
+        row.append(share_btn(t, share_key))
     return [row] if row else []
 
 

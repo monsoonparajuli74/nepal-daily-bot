@@ -30,12 +30,12 @@ async def latest(ctx: BotContext, param: str | None = None) -> None:
                 page = max(0, int(m.group(1)))
     row = await latest_snapshot(ctx.session, "news", ok_only=True)
     if row is None:
-        await send_error(ctx)
+        await send_error(ctx, module="news")
         return
     payload = row.payload or {}
     items = payload.get(ctx.language) or payload.get("en") or []
     if not items:
-        await send_error(ctx)
+        await send_error(ctx, module="news")
         return
 
     per_page = 5
@@ -43,10 +43,10 @@ async def latest(ctx: BotContext, param: str | None = None) -> None:
     end = start + per_page
     page_items = items[start:end]
     if not page_items:
-        await send_error(ctx)
+        await send_error(ctx, module="news")
         return
 
-    await ctx.track("news_view")
+    ctx.track("view", module="news")
     sources = " · ".join(dict.fromkeys(item.get("source", "") for item in items if item.get("source")))
     lines = [
         f"<b>{esc(ctx.t('news_title'))}</b>",
@@ -65,19 +65,12 @@ async def latest(ctx: BotContext, param: str | None = None) -> None:
         if len(display_title) > 220:
             display_title = display_title[:217].rstrip() + "..."
         lines.append(f"{badge} <b>{esc(display_title)}</b>")
-        if source or link:
-            if source and link:
-                if ctx.language == "ne":
-                    lines.append(f"     <i>{esc(source)}</i> · <a href=\"{esc(link)}\">पूरा पढ्नुहोस्</a>")
-                else:
-                    lines.append(f"     <i>{esc(source)}</i> · <a href=\"{esc(link)}\">Read more</a>")
-            elif source:
-                lines.append(f"     <i>{esc(source)}</i>")
-            elif link:
-                if ctx.language == "ne":
-                    lines.append(f"     <a href=\"{esc(link)}\">पूरा पढ्नुहोस्</a>")
-                else:
-                    lines.append(f"     <a href=\"{esc(link)}\">Read more</a>")
+        if source and link:
+            lines.append(f"     <i>{esc(source)}</i> · {esc(link)}")
+        elif source:
+            lines.append(f"     <i>{esc(source)}</i>")
+        elif link:
+            lines.append(f"     {esc(link)}")
         if summary_clean:
             if len(summary_clean) > 320:
                 summary_clean = summary_clean[:317].rstrip() + "..."

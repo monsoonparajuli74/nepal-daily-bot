@@ -9,6 +9,7 @@ from decimal import Decimal, InvalidOperation
 from app.bot import actions, menus
 from app.bot.context import BotContext
 from app.bot.formatters import consumer_signal, updated_line
+from app.bot.handlers import share
 from app.bot.handlers.common import send_error
 from app.data.cache import latest_snapshot, previous_ok_snapshot
 from app.data.config_loader import load_vegetables
@@ -18,45 +19,45 @@ logger = logging.getLogger(__name__)
 
 
 async def menu(ctx: BotContext, param: str | None = None) -> None:
-    await ctx.track("veg_menu")
+    ctx.track("view", module="vegetables")
     await ctx.send(menus.veg_menu(ctx.t))
 
 
 async def essentials(ctx: BotContext, param: str | None = None) -> None:
     config = load_vegetables(ctx.settings.data_dir)
     entries = config.get("essentials", [])
-    await _render_selection(ctx, entries, "veg_essentials_title", "veg_essentials")
+    await _render_selection(ctx, entries, "veg_essentials_title")
 
 
 async def vegetables(ctx: BotContext, param: str | None = None) -> None:
     config = load_vegetables(ctx.settings.data_dir)
     entries = config.get("vegetables", [])
-    await _render_selection(ctx, entries, "veg_vegetables_title", "veg_vegetables")
+    await _render_selection(ctx, entries, "veg_vegetables_title")
 
 
 async def fruits(ctx: BotContext, param: str | None = None) -> None:
     config = load_vegetables(ctx.settings.data_dir)
     entries = config.get("fruits", [])
-    await _render_selection(ctx, entries, "veg_fruits_title", "veg_fruits")
+    await _render_selection(ctx, entries, "veg_fruits_title")
 
 
 async def greens(ctx: BotContext, param: str | None = None) -> None:
     config = load_vegetables(ctx.settings.data_dir)
     entries = config.get("greens", [])
-    await _render_selection(ctx, entries, "veg_greens_title", "veg_greens")
+    await _render_selection(ctx, entries, "veg_greens_title")
 
 
-async def _render_selection(ctx: BotContext, entries: list[dict], title_key: str, event: str) -> None:
+async def _render_selection(ctx: BotContext, entries: list[dict], title_key: str) -> None:
     row = await latest_snapshot(ctx.session, "vegetables", ok_only=True)
     if row is None:
-        await send_error(ctx)
+        await send_error(ctx, module="vegetables")
         return
     items = (row.payload or {}).get("items") or []
     if not items:
-        await send_error(ctx)
+        await send_error(ctx, module="vegetables")
         return
 
-    await ctx.track(event)
+    ctx.track("view", module="vegetables")
     lines = [f"{ctx.t('veg_title')}", ctx.t(title_key), ""]
     found = 0
     for entry in entries:
@@ -84,7 +85,7 @@ async def _render_selection(ctx: BotContext, entries: list[dict], title_key: str
     compact = f"🥦 Kalimati vegetable prices ({ctx.t(title_key)})"
     rows = [[menus.Btn(text=ctx.t("btn_more_veg"), action=actions.VEG_MORE)]]
     rows.extend(
-        menus.result_buttons(ctx.t, back_action=actions.VEG_MENU, share_url=ctx.share_url(compact))
+        menus.result_buttons(ctx.t, back_action=actions.VEG_MENU, share_key=share.stash("vegetables", compact))
     )
     await ctx.reply(body, inline=rows)
 
@@ -93,11 +94,11 @@ async def more(ctx: BotContext, param: str | None = None) -> None:
     """A longer list of vegetables beyond the essentials + greens shortcuts."""
     row = await latest_snapshot(ctx.session, "vegetables", ok_only=True)
     if row is None:
-        await send_error(ctx)
+        await send_error(ctx, module="vegetables")
         return
     items = (row.payload or {}).get("items") or []
     if not items:
-        await send_error(ctx)
+        await send_error(ctx, module="vegetables")
         return
 
     config = load_vegetables(ctx.settings.data_dir)
@@ -119,7 +120,7 @@ async def more(ctx: BotContext, param: str | None = None) -> None:
         extras.append((name, item))
     extras.sort(key=lambda pair: pair[0].lower())
 
-    await ctx.track("veg_more")
+    ctx.track("view", module="vegetables")
     lines = [ctx.t("veg_title"), ctx.t("veg_more_title"), ""]
     shown = 0
     for name, item in extras[:20]:
@@ -144,7 +145,7 @@ async def more(ctx: BotContext, param: str | None = None) -> None:
     compact = "🥦 Kalimati vegetable prices (more vegetables)"
     await ctx.reply(
         body,
-        inline=menus.result_buttons(ctx.t, back_action=actions.VEG_MENU, share_url=ctx.share_url(compact)),
+        inline=menus.result_buttons(ctx.t, back_action=actions.VEG_MENU, share_key=share.stash("vegetables", compact)),
     )
 
 
@@ -186,13 +187,13 @@ def _ranges(items: list[dict], entries: list[dict], language: str) -> list[str]:
 async def trends(ctx: BotContext, param: str | None = None) -> None:
     row = await latest_snapshot(ctx.session, "vegetables", ok_only=True)
     if row is None:
-        await send_error(ctx)
+        await send_error(ctx, module="vegetables")
         return
     today_items = (row.payload or {}).get("items") or []
     previous = await previous_ok_snapshot(ctx.session, "vegetables")
     yesterday_items = (previous.payload or {}).get("items", []) if previous else []
 
-    await ctx.track("veg_trends")
+    ctx.track("view", module="vegetables")
     lines = [ctx.t("veg_title"), ctx.t("veg_trends_title"), ""]
 
     if not yesterday_items:
@@ -202,7 +203,7 @@ async def trends(ctx: BotContext, param: str | None = None) -> None:
         compact = "🥦 Kalimati vegetable price trends"
         await ctx.reply(
             "\n".join(lines),
-            inline=menus.result_buttons(ctx.t, back_action=actions.VEG_MENU, share_url=ctx.share_url(compact)),
+            inline=menus.result_buttons(ctx.t, back_action=actions.VEG_MENU, share_key=share.stash("vegetables", compact)),
         )
         return
 
@@ -247,7 +248,7 @@ async def trends(ctx: BotContext, param: str | None = None) -> None:
     compact = "🥦 Kalimati vegetable price trends"
     await ctx.reply(
         "\n".join(lines),
-        inline=menus.result_buttons(ctx.t, back_action=actions.VEG_MENU, share_url=ctx.share_url(compact)),
+        inline=menus.result_buttons(ctx.t, back_action=actions.VEG_MENU, share_key=share.stash("vegetables", compact)),
     )
 
 

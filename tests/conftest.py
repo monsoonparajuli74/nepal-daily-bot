@@ -12,6 +12,7 @@ from httpx import ASGITransport, AsyncClient
 from app.channels.base import Reply
 from app.channels.telegram.client import TelegramChannel
 from app.config import Settings
+from app.data.analytics import drain_tracked_events
 from app.data.models import Snapshot, User
 from app.db import build_engine, build_session_factory, init_models
 from app.main import create_app
@@ -107,6 +108,8 @@ async def app(settings: Settings):
         application.state.processor.channel = fake
         application.state.fake_channel = fake
         yield application
+        # Let fire-and-forget analytics writes land before the app engine is disposed.
+        await drain_tracked_events()
 
 
 @pytest_asyncio.fixture

@@ -6,7 +6,8 @@ import logging
 
 from app.bot import actions, menus
 from app.bot.context import BotContext
-from app.bot.formatters import aqi_band, updated_line
+from app.bot.formatters import aqi_band, esc, updated_line
+from app.bot.handlers import share
 from app.bot.handlers.common import send_error
 from app.bot.i18n import wmo_description
 from app.data.cache import latest_snapshot
@@ -16,12 +17,12 @@ logger = logging.getLogger(__name__)
 
 
 async def menu(ctx: BotContext, param: str | None = None) -> None:
-    await ctx.track("wx_menu")
+    ctx.track("view", module="weather")
     await ctx.send(menus.weather_city_grid(ctx.t))
 
 
 async def more(ctx: BotContext, param: str | None = None) -> None:
-    await ctx.track("wx_more")
+    ctx.track("view", module="weather")
     await ctx.send(menus.weather_city_grid(ctx.t, more=True))
 
 
@@ -33,14 +34,14 @@ async def city(ctx: BotContext, param: str | None = None) -> None:
 
     row = await latest_snapshot(ctx.session, "weather", ok_only=True)
     if row is None:
-        await send_error(ctx)
+        await send_error(ctx, module="weather")
         return
     record = ((row.payload or {}).get("cities") or {}).get(key)
     if not record:
-        await send_error(ctx)
+        await send_error(ctx, module="weather")
         return
 
-    await ctx.track("wx_city")
+    ctx.track("view", module="weather")
     label = ctx.t(f"city_{key}")
     temp = _fmt(record.get("temp"))
     feels = _fmt(record.get("feels"))
@@ -98,7 +99,7 @@ async def city(ctx: BotContext, param: str | None = None) -> None:
     compact = f"{label}: {temp}°C, {desc}, AQI {int(aqi) if aqi is not None else 'n/a'}"
     await ctx.reply(
         body,
-        inline=menus.result_buttons(ctx.t, back_action=actions.WX_MENU, share_url=ctx.share_url(compact)),
+        inline=menus.result_buttons(ctx.t, back_action=actions.WX_MENU, share_key=share.stash("weather", compact)),
     )
 
 

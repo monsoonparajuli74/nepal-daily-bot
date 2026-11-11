@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from app.bot.handlers import (  # noqa: F401
+    admin,
     calendar,
     forex,
     fuel,
@@ -11,11 +12,13 @@ from app.bot.handlers import (  # noqa: F401
     lifecycle,
     metals,
     news,
+    share,
     veg,
     weather,
 )
 
 __all__ = [
+    "admin",
     "calendar",
     "forex",
     "fuel",
@@ -24,6 +27,7 @@ __all__ = [
     "lifecycle",
     "metals",
     "news",
+    "share",
     "veg",
     "weather",
 ]

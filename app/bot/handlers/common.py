@@ -25,6 +25,7 @@ def welcome_menu(ctx: BotContext) -> Reply:
 
 
 async def send_home(ctx: BotContext, *, hint: bool = False, text: str | None = None) -> None:
+    ctx.track("menu_open", module="home")
     if hint and text is None:
         body = f"{ctx.t('unknown_hint')}\n\n<b>{ctx.t('home_menu_title')}</b>"
     elif text is not None:
@@ -34,7 +35,8 @@ async def send_home(ctx: BotContext, *, hint: bool = False, text: str | None = N
     await ctx.send(menus.home_reply(ctx.t, text=body))
 
 
-async def send_error(ctx: BotContext) -> None:
+async def send_error(ctx: BotContext, *, module: str | None = None) -> None:
+    ctx.track("error", module=module)
     await ctx.reply(
         f"<b>{ctx.t('error_generic')}</b>",
         inline=[[menus.back_btn(ctx.t)]],

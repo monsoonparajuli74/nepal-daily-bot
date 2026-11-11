@@ -18,6 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from app.bot.state import purge_expired_states
 from app.bot.users import purge_inactive
 from app.config import Settings
+from app.data.analytics import purge_events
 from app.data.cache import refresh_source
 from app.data.dedupe import purge_updates
 from app.data.sources.base import SourceAdapter
@@ -89,9 +90,12 @@ async def _cleanup_job(settings: Settings, session_factory: async_sessionmaker[A
             removed = await purge_inactive(session, settings.user_data_retention_days)
             await purge_expired_states(session)
             await purge_updates(session, settings.dedupe_ttl_hours)
+            events_removed = await purge_events(session, settings.events_retention_days)
             await session.commit()
             if removed:
                 logger.info("retention_cleanup", extra={"removed_users": removed})
+            if events_removed:
+                logger.info("events_retention_purge", extra={"removed_events": events_removed})
         except Exception:  # noqa: BLE001
             logger.exception("retention_cleanup_failed")
             await session.rollback()

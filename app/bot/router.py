@@ -15,6 +15,7 @@ from collections.abc import Awaitable, Callable
 from app.bot import actions, state, textcmd
 from app.bot.context import BotContext
 from app.bot.handlers import (
+    admin,
     calendar,
     forex,
     fuel,
@@ -23,6 +24,7 @@ from app.bot.handlers import (
     lifecycle,
     metals,
     news,
+    share,
     veg,
     weather,
 )
@@ -76,6 +78,7 @@ PREFIX_ROUTES: tuple[tuple[str, Handler], ...] = (
     ("fx:ca:", forex.calc_amount),
     ("wx:c:", weather.city),
     ("nw:l", news.latest),
+    ("share:", share.share),
 )
 
 
@@ -120,6 +123,9 @@ async def route_text(ctx: BotContext, text: str) -> None:
 
 async def route_command(ctx: BotContext, name: str, args: list[str]) -> None:
     """Slash command, optionally with an argument (``/horoscope leo``)."""
+    if name == "stats":
+        await admin.stats(ctx, args[0] if args else None)
+        return
     if name in {"horoscope", "rashifal"}:
         slug = args[0].strip().lower() if args else ""
         if slug in SIGN_NAMES:

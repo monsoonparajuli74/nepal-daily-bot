@@ -54,6 +54,12 @@ class Settings(BaseSettings):
     user_data_retention_days: int = 30
     welcome_after_silence_days: int = 30
     analytics_salt: str = "change-this-salt"
+    #: Telegram id(s) allowed to use /stats (env ADMIN_TELEGRAM_ID). Comma-separated is allowed.
+    admin_telegram_id: str = ""
+    #: Nightly analytics summary DM to the admin at 21:00 NPT (needs ADMIN_TELEGRAM_ID).
+    feature_admin_daily_summary: bool = False
+    #: Analytics rows older than this are purged nightly.
+    events_retention_days: int = 180
 
     # ---- Daily briefing ----
     feature_daily_digest: bool = False
@@ -92,6 +98,31 @@ class Settings(BaseSettings):
     @classmethod
     def _strip_username(cls, value: str) -> str:
         return value.strip().lstrip("@")
+
+    @field_validator("admin_telegram_id", mode="before")
+    @classmethod
+    def _normalise_admin_telegram_id(cls, value: object) -> str:
+        if value is None:
+            return ""
+        return str(value).strip()
+
+    @property
+    def admin_telegram_ids(self) -> tuple[int, ...]:
+        """Parsed ADMIN_TELEGRAM_ID values; invalid entries are ignored."""
+        ids: list[int] = []
+        for part in (self.admin_telegram_id or "").replace(";", ",").split(","):
+            try:
+                value = int(part.strip())
+            except (TypeError, ValueError):
+                continue
+            if value not in ids:
+                ids.append(value)
+        return tuple(ids)
+
+    @property
+    def admin_ids(self) -> tuple[int, ...]:
+        """Alias kept short for handlers."""
+        return self.admin_telegram_ids
 
     @field_validator("telegram_mode")
     @classmethod

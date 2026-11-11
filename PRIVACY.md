@@ -13,7 +13,7 @@ Sajilo Nepal is a utility bot. It is built to collect as little as possible.
 | Digest preference | To send the morning digest only to users who asked for it | Same as above |
 | Conversation state | To hold calculator input mid-flow | 10 minutes |
 | Update records | To de-duplicate Telegram's retried webhook/polling deliveries | 24 hours |
-| Analytics events | To count feature usage, keyed by a salted **hash** of the id | Rolling window |
+| Analytics events | To count feature usage, keyed by an **HMAC-SHA256 hash** of the id | 180 days (default) |
 
 ## What we never store
 
@@ -28,10 +28,12 @@ Telegram's Bot API and this service's own database.
 
 ## Analytics
 
-Usage events are stored against a **salted SHA-256 hash** of the user id, never the id itself.
-The salt is set with `ANALYTICS_SALT` and is not shipped in the repository. This lets us count
-daily active users and per-feature usage without identifying anyone. Set a strong, private salt
-in production.
+Usage events (screens opened, language, arrival source) are stored against an
+**HMAC-SHA256** of the user id, keyed with `ANALYTICS_SALT` — never the id itself, and
+never any message text. The salt is not shipped in the repository. This lets us count
+daily active users and per-feature usage without identifying anyone. Events are deleted
+after `EVENTS_RETENTION_DAYS` (default 180 days). Set a strong, private salt in
+production.
 
 ## Third parties
 

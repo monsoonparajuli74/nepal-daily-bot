@@ -8,6 +8,7 @@ from decimal import Decimal, InvalidOperation
 from app.bot import menus
 from app.bot.context import BotContext
 from app.bot.formatters import consumer_signal, updated_line
+from app.bot.handlers import share
 from app.bot.handlers.common import send_error
 from app.data.cache import latest_snapshot, previous_ok_snapshot
 from app.utils import nepali_digits as nd
@@ -25,17 +26,17 @@ PRODUCTS = (
 async def today(ctx: BotContext, param: str | None = None) -> None:
     row = await latest_snapshot(ctx.session, "fuel", ok_only=True)
     if row is None:
-        await send_error(ctx)
+        await send_error(ctx, module="fuel")
         return
     payload = row.payload or {}
     prices = payload.get("prices") or {}
     if not prices:
-        await send_error(ctx)
+        await send_error(ctx, module="fuel")
         return
     previous = await previous_ok_snapshot(ctx.session, "fuel")
     previous_prices = (previous.payload or {}).get("prices", {}) if previous else {}
 
-    await ctx.track("fuel_view")
+    ctx.track("view", module="fuel")
     lines = [f"<b>{ctx.t('fuel_title')}</b>", ""]
     for key, label_key in PRODUCTS:
         label = ctx.t(label_key)
@@ -59,7 +60,7 @@ async def today(ctx: BotContext, param: str | None = None) -> None:
     body = "\n".join(lines)
 
     compact = f"⛽ Fuel (Kathmandu): Petrol रू {prices.get('petrol')}/L, Diesel रू {prices.get('diesel')}/L"
-    await ctx.reply(body, inline=menus.result_buttons(ctx.t, share_url=ctx.share_url(compact)))
+    await ctx.reply(body, inline=menus.result_buttons(ctx.t, share_key=share.stash("fuel", compact)))
 
 
 def _dec(value) -> Decimal | None:

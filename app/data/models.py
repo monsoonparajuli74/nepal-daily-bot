@@ -91,16 +91,24 @@ class UpdateRecord(Base):
 
 
 class Event(Base):
-    """Privacy-friendly analytics: only a salted hash of the Telegram id is stored."""
+    """Privacy-friendly analytics: only an HMAC of the Telegram id is stored.
+
+    ``module`` names the screen (weather, forex, calculator...), ``lang`` the interface
+    language at the time and ``source`` the /start deep-link payload. No message text and
+    no raw ids are ever stored.
+    """
 
     __tablename__ = "events"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    tg_user_id_hash: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
-    event: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
-    ts: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
+    ts: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False, index=True)
+    user_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    event: Mapped[str] = mapped_column(String(32), nullable=False)
+    module: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    lang: Mapped[str | None] = mapped_column(String(4), nullable=True)
+    source: Mapped[str | None] = mapped_column(String(64), nullable=True)
 
-    __table_args__ = (Index("ix_events_event_ts", "event", "ts"),)
+    __table_args__ = (Index("ix_events_user_hash_ts", "user_hash", "ts"),)
 
 
 class Horoscope(Base):

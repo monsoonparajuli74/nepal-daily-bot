@@ -18,6 +18,7 @@ from app.bot.ratelimit import RateLimiter
 from app.bot.users import get_or_create_user, get_user, mark_inactive, set_source
 from app.channels.base import Channel, InboundEvent, InboundKind
 from app.config import Settings
+from app.data import analytics
 from app.data.dedupe import Deduper
 from app.utils.timeutil import ensure_utc, now_utc
 
@@ -80,6 +81,10 @@ class Processor:
         async with self.session_factory() as session:
             await mark_inactive(session, event.user_id)
             await session.commit()
+        # my_chat_member "left"/"kicked": the bot was removed from a chat.
+        analytics.track_event_async(
+            self.session_factory, self.settings.analytics_salt, event.user_id, "blocked"
+        )
 
     async def _unsupported(self, event: InboundEvent) -> None:
         async with self.session_factory() as session:
@@ -90,9 +95,11 @@ class Processor:
 
     async def _dispatch(self, event: InboundEvent) -> None:
         async with self.session_factory() as session:
+            ctx: BotContext | None = None
             try:
                 existing = await get_user(session, event.user_id)
                 returning = existing is not None and (not existing.is_active or self._is_stale(existing))
+                was_inactive = existing is not None and not existing.is_active
                 user = await get_or_create_user(session, event.user_id, event.display_name)
                 source = self._start_source(event)
                 if source:
@@ -100,9 +107,15 @@ class Processor:
                 ctx = self._context(session, user, event)
                 ctx.is_returning = returning
 
+                if was_inactive:
+                    ctx.track("unblocked")
                 if event.kind is InboundKind.CALLBACK:
                     await router.route_action(ctx, event.action or "")
                 elif self._is_start(event) or (returning and not event.is_group and not event.is_command):
+                    if self._is_start(event):
+                        ctx.track("start", source=source or "direct")
+                    else:
+                        ctx.track("menu_open", module="home")
                     await ctx.send(welcome_menu(ctx))
                 else:
                     await router.route_text(ctx, event.text or "")
@@ -111,6 +124,12 @@ class Processor:
             except Exception:  # noqa: BLE001 - one bad turn must not kill the worker
                 logger.exception("turn_failed", extra={"chat": event.chat_id})
                 await session.rollback()
+                if ctx is not None:
+                    ctx.track("error")
+                else:
+                    analytics.track_event_async(
+                        self.session_factory, self.settings.analytics_salt, event.user_id, "error"
+                    )
 
     def _context(self, session: AsyncSession, user, event: InboundEvent) -> BotContext:
         return BotContext(
@@ -120,6 +139,7 @@ class Processor:
             channel=self.channel,
             inbound=event,
             language=user.language,
+            session_factory=self.session_factory,
         )
 
     def _is_stale(self, user) -> bool:

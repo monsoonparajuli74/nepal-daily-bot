@@ -10,7 +10,7 @@ from app.bot.users import set_language, toggle_language
 async def toggle(ctx: BotContext, param: str | None = None) -> None:
     user = await toggle_language(ctx.session, ctx.user)
     ctx.set_language(user.language)
-    await ctx.track("language_toggle")
+    ctx.track("language_change")
     await send_home(ctx, text=f"{ctx.t('language_set')}\n{ctx.t('home_menu_title')}")
 
 
@@ -25,5 +25,5 @@ async def set_ne(ctx: BotContext, param: str | None = None) -> None:
 async def _apply(ctx: BotContext, language: str) -> None:
     user = await set_language(ctx.session, ctx.user, language)
     ctx.set_language(user.language)
-    await ctx.track(f"language_{language}")
+    ctx.track("language_change")
     await send_home(ctx, text=f"{ctx.t('language_set')}\n{ctx.t('home_menu_title')}")

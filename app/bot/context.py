@@ -7,15 +7,18 @@ here, so a handler is transport-agnostic.
 
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass, field
 
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.bot.i18n import make_translator, normalise_language
 from app.channels.base import Channel, InboundEvent, InboundKind, Reply
 from app.config import Settings
-from app.data.analytics import hash_user_id, track_event
+from app.data.analytics import hash_user_id, track_event_async
 from app.data.models import User
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -27,8 +30,10 @@ class BotContext:
     inbound: InboundEvent | None = None
     language: str = "en"
     actions: list[str] = field(default_factory=list)
-    #: True when the current inbound turn is the user's first message in a long time.
+    #: True when the current inbound turn is the user's first message in a long while.
     is_returning: bool = False
+    #: Session factory for fire-and-forget analytics (optional; see ``track``).
+    session_factory: async_sessionmaker[AsyncSession] | None = None
 
     def __post_init__(self) -> None:
         self.language = normalise_language(self.language or self.user.language)
@@ -93,16 +98,27 @@ class BotContext:
             callback_query_id=self.inbound.callback_query_id if self.inbound else None,
         )
 
-    async def track(self, event: str) -> None:
-        await track_event(self.session, self.tg_id, event, self.settings.analytics_salt)
+    def track(self, event: str, *, module: str | None = None, source: str | None = None) -> None:
+        """Record an analytics event without ever slowing or breaking this reply.
+
+        Writes happen in the background on their own session; failures are logged, never
+        raised. The interface language at the time is stored as ``lang``.
+        """
+        if self.session_factory is None:
+            logger.debug("analytics_skipped_no_session_factory", extra={"event": event})
+            return
+        track_event_async(
+            self.session_factory,
+            self.settings.analytics_salt,
+            self.tg_id,
+            event,
+            module=module,
+            lang=self.language,
+            source=source,
+        )
 
     def user_hash(self) -> str:
         return hash_user_id(self.tg_id, self.settings.analytics_salt)
-
-    def share_url(self, compact: str) -> str:
-        from app.utils.share import share_url
-
-        return share_url(compact, self.settings.bot_username)
 
     def bot_link(self) -> str:
         return self.settings.bot_link

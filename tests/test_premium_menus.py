@@ -31,13 +31,16 @@ def test_horoscope_buttons_offer_all_periods_and_highlight_current():
         T,
         "leo",
         can_save=True,
-        share_url="https://t.me/share/url?url=x",
+        share_key="ab12cd34",
         period="m",
     )
     actions_row = [btn.action for row in rows[:2] for btn in row]
     assert actions_row == ["hs:s:leo", "hs:p:w:leo", "hs:p:m:leo", "hs:p:y:leo"]
     assert rows[1][0].text.startswith("• ")
     assert not rows[0][1].text.startswith("• ")
+    # The share button is a callback into the stash, not a URL button.
+    assert rows[2][1].action == "share:ab12cd34"
+    assert rows[2][1].url is None
 
 
 def test_photo_caption_overflow_becomes_follow_up_messages(tmp_path: Path):

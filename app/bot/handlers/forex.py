@@ -8,6 +8,7 @@ from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
 from app.bot import actions, menus, state
 from app.bot.context import BotContext
 from app.bot.formatters import market_signal, updated_line
+from app.bot.handlers import share
 from app.bot.handlers.common import send_error
 from app.data.cache import previous_ok_snapshot
 from app.data.sources.forex import ALL_CURRENCIES, KEY_CURRENCIES, OTHER_CURRENCIES, flag
@@ -25,18 +26,18 @@ USE_BUY_RATE = True
 async def rates(ctx: BotContext, param: str | None = None) -> None:
     row = await _latest(ctx)
     if row is None:
-        await send_error(ctx)
+        await send_error(ctx, module="forex")
         return
     payload = row.payload or {}
     rates_data = payload.get("rates") or {}
     if not rates_data:
-        await send_error(ctx)
+        await send_error(ctx, module="forex")
         return
 
     previous = await previous_ok_snapshot(ctx.session, "forex")
     previous_rates = (previous.payload or {}).get("rates", {}) if previous else {}
 
-    await ctx.track("fx_rates")
+    ctx.track("view", module="forex")
     lines = [ctx.t("fx_title")]
     lines.extend(_rate_lines(ctx, rates_data, previous_rates, KEY_CURRENCIES))
     lines.append("")
@@ -47,7 +48,7 @@ async def rates(ctx: BotContext, param: str | None = None) -> None:
     body = "\n".join(lines)
 
     compact = f"💵 NRB rates: USD buy रू {_buy_of(rates_data.get('USD'))}"
-    await ctx.reply(body, inline=menus.forex_buttons(ctx.t, ctx.share_url(compact)))
+    await ctx.reply(body, inline=menus.forex_buttons(ctx.t, share.stash("forex", compact)))
 
 
 def _rate_lines(ctx: BotContext, today: dict, previous: dict, codes) -> list[str]:
@@ -114,7 +115,6 @@ async def type_another(ctx: BotContext, param: str | None = None) -> None:
         await calc(ctx)
         return
     await state.set_state(ctx.session, ctx.tg_id, state.STATE_AWAITING_AMOUNT, {"currency": code})
-    await ctx.track("fx_type_another")
     buttons = [[menus.back_btn(ctx.t, actions.FOREX_CALC)]]
     await ctx.reply(ctx.t("calc_type_now", currency=f"{flag(code)} {code}"), inline=buttons)
 
@@ -138,7 +138,7 @@ async def handle_input(ctx: BotContext, raw: str, code: str | None = None) -> No
     try:
         amount = parse_amount(raw)
     except AmountError:
-        await ctx.track("calc_invalid")
+        ctx.track("calc_invalid", module="calculator")
         await ctx.send(menus.amount_picker(ctx.t, code, QUICK_PICKS))
         await ctx.reply(ctx.t("calc_invalid"))
         return
@@ -146,25 +146,25 @@ async def handle_input(ctx: BotContext, raw: str, code: str | None = None) -> No
     rows = await _rate_rows(ctx)
     if rows is None:
         await state.clear_state(ctx.session, ctx.tg_id)
-        await send_error(ctx)
+        await send_error(ctx, module="calculator")
         return
     today, _row = rows
     entry = today.get(code)
     if not entry:
         await state.clear_state(ctx.session, ctx.tg_id)
-        await send_error(ctx)
+        await send_error(ctx, module="calculator")
         return
 
     rate = _decimal(entry.get("sell" if not USE_BUY_RATE else "buy"))
     unit = int(entry.get("unit", 1))
     if rate is None:
         await state.clear_state(ctx.session, ctx.tg_id)
-        await send_error(ctx)
+        await send_error(ctx, module="calculator")
         return
 
     total = (amount * rate / Decimal(unit)).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
     await state.clear_state(ctx.session, ctx.tg_id)
-    await ctx.track("calc_complete")
+    ctx.track("calculator_complete", module="calculator")
 
     rate_line = (
         f"1 {code} = रू {nd.group_digits(rate, decimals=2)}"
@@ -183,7 +183,7 @@ async def handle_input(ctx: BotContext, raw: str, code: str | None = None) -> No
         ctx.t("calc_disclaimer"),
     ]
     compact = f"💱 {foreign_text} = {total_text} NPR"
-    await ctx.reply("\n".join(lines), inline=menus.conversion_buttons(ctx.t, code, ctx.share_url(compact)))
+    await ctx.reply("\n".join(lines), inline=menus.conversion_buttons(ctx.t, code, share.stash("calculator", compact)))
 
 
 async def _latest(ctx: BotContext):

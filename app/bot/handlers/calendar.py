@@ -8,6 +8,7 @@ from datetime import date
 from app.bot import menus
 from app.bot.context import BotContext
 from app.bot.formatters import esc, updated_line
+from app.bot.handlers import share
 from app.data.cache import latest_snapshot
 from app.data.config_loader import load_festivals
 from app.utils import nepali_digits as nd
@@ -32,7 +33,7 @@ async def today(ctx: BotContext, param: str | None = None) -> None:
     upcoming = sorted([f for f in festivals if f.get("ad_date", "") > day.isoformat()], key=lambda f: f.get("ad_date", ""))[:5]
     panchang = await _panchang(ctx)
 
-    await ctx.track("cal_today")
+    ctx.track("view", module="calendar")
     lines = [
         ctx.t("cal_title"),
         ctx.t("cal_today", weekday=weekday, bs=bs_text, ad=ad_text),
@@ -79,7 +80,7 @@ async def today(ctx: BotContext, param: str | None = None) -> None:
     body = "\n".join(lines)
 
     compact = f"🇳🇵 {weekday}, {bs_text} BS | {ad_text}"
-    await ctx.reply(body, inline=menus.result_buttons(ctx.t, share_url=ctx.share_url(compact)))
+    await ctx.reply(body, inline=menus.result_buttons(ctx.t, share_key=share.stash("calendar", compact)))
 
 
 async def _panchang(ctx: BotContext) -> str:
