@@ -41,6 +41,9 @@ class BotContext:
 
     @property
     def tg_id(self) -> int:
+        # Prefer the immutable inbound id: ORM attributes may be expired after rollback.
+        if self.inbound is not None:
+            return self.inbound.user_id
         return self.user.tg_user_id
 
     @property

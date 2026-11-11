@@ -123,14 +123,10 @@ STRINGS: dict[str, dict[str, str]] = {
         "ne": "✅ भाषा नेपालीमा परिवर्तन भयो।",
     },
     # ---- Horoscope ----
-        "horo_title": {"en": "?? Daily Horoscope", "ne": "?? ????? ??????"},
+    "horo_title": {"en": "🔮 Daily Horoscope", "ne": "🔮 दैनिक राशिफल"},
     "horo_pick_sign": {
         "en": "Pick your zodiac sign:",
         "ne": "आफ्नो राशि छान्नुहोस्:",
-    },
-    "horo_footer": {
-        "en": "📖 Source: Nepali Patro · For entertainment purposes.",
-        "ne": "📖 स्रोत: नेपाली पात्रो · मनोरञ्जनको उद्देश्यले मात्र।",
     },
     "horo_change_sign": {"en": "🔄 Change Sign", "ne": "🔄 राशि परिवर्तन"},
     "btn_save_default": {"en": "📌 Save as Default", "ne": "📌 पूर्वनिर्धारित"},

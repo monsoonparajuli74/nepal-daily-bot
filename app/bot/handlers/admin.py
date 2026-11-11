@@ -18,12 +18,20 @@ def is_admin(settings: Settings, tg_user_id: int) -> bool:
     return tg_user_id in settings.admin_telegram_ids
 
 
+async def _stats_report(ctx: BotContext, param: str | None) -> str:
+    """Build the report on a fresh session so the turn's session is never reused."""
+    if ctx.session_factory is None:
+        return await build_stats_report(ctx.session, ctx.settings.analytics_salt, param)
+    async with ctx.session_factory() as session:
+        return await build_stats_report(session, ctx.settings.analytics_salt, param)
+
+
 async def stats(ctx: BotContext, param: str | None = None) -> None:
     """Show the analytics report; only an ADMIN_TELEGRAM_ID in a private chat gets it."""
     if ctx.is_group or not is_admin(ctx.settings, ctx.tg_id):
         # Do nothing at all: never reveal that /stats exists.
         return
-    report = await build_stats_report(ctx.session, ctx.settings.analytics_salt, param)
+    report = await _stats_report(ctx, param)
     await ctx.reply(report)
 
 

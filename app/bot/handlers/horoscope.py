@@ -100,7 +100,7 @@ async def render_reading(
         f"<b>{heading}</b> • {esc(display)}",
         date_line,
     ]
-    lines += ["", esc(reading), "", ctx.t("horo_footer")]
+    lines += ["", esc(reading)]
     if prefix:
         lines.insert(0, prefix)
     body = "\n".join(lines)

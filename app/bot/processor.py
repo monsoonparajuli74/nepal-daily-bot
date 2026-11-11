@@ -7,6 +7,8 @@ owns the database session for the turn and commits once, so handlers stay simple
 from __future__ import annotations
 
 import logging
+import re
+import traceback
 from datetime import timedelta
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
@@ -23,6 +25,30 @@ from app.data.dedupe import Deduper
 from app.utils.timeutil import ensure_utc, now_utc
 
 logger = logging.getLogger(__name__)
+
+#: Telegram bot tokens look like ``123456789:AA...``; never write them to logs.
+_BOT_TOKEN_RE = re.compile(r"\d{6,}:[A-Za-z0-9_-]{30,}")
+
+
+def _redact_secrets(value: str) -> str:
+    return _BOT_TOKEN_RE.sub("<redacted>", value or "")
+
+
+def _traceback_frames(exc: BaseException) -> list[str]:
+    return [
+        f"{frame.filename}:{frame.lineno} in {frame.name}"
+        for frame in traceback.extract_tb(exc.__traceback__)
+    ]
+
+
+def _traceback_location(exc: BaseException) -> str:
+    frames = _traceback_frames(exc)
+    return frames[-1] if frames else "<unknown>"
+
+
+def _traceback_text(exc: BaseException) -> str:
+    formatted = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+    return _redact_secrets(formatted)
 
 
 class Processor:
@@ -121,15 +147,36 @@ class Processor:
                     await router.route_text(ctx, event.text or "")
 
                 await session.commit()
-            except Exception:  # noqa: BLE001 - one bad turn must not kill the worker
-                logger.exception("turn_failed", extra={"chat": event.chat_id})
-                await session.rollback()
-                if ctx is not None:
-                    ctx.track("error")
-                else:
-                    analytics.track_event_async(
-                        self.session_factory, self.settings.analytics_salt, event.user_id, "error"
+            except Exception as exc:  # noqa: BLE001 - one bad turn must not kill the worker
+                logger.error(
+                    "turn_failed at %s\n%s",
+                    _traceback_location(exc),
+                    _traceback_text(exc),
+                    extra={
+                        "chat": event.chat_id,
+                        "error_type": type(exc).__name__,
+                        "location": _traceback_location(exc),
+                        "trace": _traceback_frames(exc),
+                    },
+                )
+                try:
+                    await session.rollback()
+                except Exception as rollback_exc:  # noqa: BLE001 - best effort
+                    logger.error(
+                        "turn_rollback_failed at %s\n%s",
+                        _traceback_location(rollback_exc),
+                        _traceback_text(rollback_exc),
+                        extra={
+                            "chat": event.chat_id,
+                            "error_type": type(rollback_exc).__name__,
+                            "location": _traceback_location(rollback_exc),
+                        },
                     )
+                # Record the failure outside the turn's session: after rollback ORM
+                # attributes may be expired and a sync access would try to lazy-load.
+                analytics.track_event_async(
+                    self.session_factory, self.settings.analytics_salt, event.user_id, "error"
+                )
 
     def _context(self, session: AsyncSession, user, event: InboundEvent) -> BotContext:
         return BotContext(
